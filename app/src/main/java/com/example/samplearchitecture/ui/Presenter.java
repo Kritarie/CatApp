@@ -11,7 +11,7 @@ import com.example.samplearchitecture.ui.common.MvpView;
 public abstract class Presenter<T extends MvpView> {
 
     @NonNull
-    private DataManager dataManager;
+    private final DataManager dataManager;
     @Nullable
     private T view;
 
@@ -20,17 +20,30 @@ public abstract class Presenter<T extends MvpView> {
     }
 
     @NonNull
-    protected DataManager getDataManager() {
+    protected final DataManager getDataManager() {
         return dataManager;
     }
 
     @Nullable
-    public T getView() {
+    public final T getView() {
         return view;
     }
 
-    public void setView(@NonNull T view) {
+    public final void setView(@Nullable T view) {
         this.view = view;
+        if (view == null) {
+            onViewDetacted();
+        } else {
+            onViewAttached(view);
+        }
+    }
+
+    protected void onViewAttached(@NonNull T View) {
+        // No Impl
+    }
+
+    protected void onViewDetacted() {
+        // No Impl
     }
 
 }

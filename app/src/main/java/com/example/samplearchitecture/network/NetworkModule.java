@@ -1,6 +1,7 @@
 package com.example.samplearchitecture.network;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.samplearchitecture.BuildConfig;
 import com.squareup.okhttp.OkHttpClient;
@@ -10,7 +11,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import timber.log.Timber;
 
 import static com.squareup.okhttp.logging.HttpLoggingInterceptor.Level.BODY;
 import static com.squareup.okhttp.logging.HttpLoggingInterceptor.Level.NONE;
@@ -20,6 +20,8 @@ import static com.squareup.okhttp.logging.HttpLoggingInterceptor.Level.NONE;
  */
 @Module
 public class NetworkModule {
+
+    private static final String TAG = "Network_Log";
 
     @Provides @NonNull @Singleton
     public OkHttpClient provideOkHttpClient(@NonNull HttpLoggingInterceptor httpLoggingInterceptor) {
@@ -32,7 +34,7 @@ public class NetworkModule {
     @NonNull
     @Singleton
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(message -> Timber.d(message));
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(message -> Log.d(TAG, message));
         httpLoggingInterceptor.setLevel(BuildConfig.DEBUG ? BODY : NONE);
         return httpLoggingInterceptor;
     }

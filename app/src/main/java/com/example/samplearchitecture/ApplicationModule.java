@@ -1,7 +1,6 @@
 package com.example.samplearchitecture;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +15,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.tatarka.parsnip.Xml;
 
 /**
  * Created by seanamos on 12/28/15.
@@ -26,14 +26,14 @@ public class ApplicationModule {
     public static final String MAIN_THREAD_HANDLER = "main_thread_handler";
 
     @NonNull
-    private final ArchitectureApplication app;
+    private final CatApplication app;
 
-    public ApplicationModule(@NonNull ArchitectureApplication app) {
+    public ApplicationModule(@NonNull CatApplication app) {
         this.app = app;
     }
 
     @Provides @NonNull @Singleton
-    public ArchitectureApplication provideApplication() {
+    public CatApplication provideApplication() {
         return app;
     }
 
@@ -47,14 +47,18 @@ public class ApplicationModule {
         return app.getResources();
     }
 
+    @Provides @NonNull @Singleton
+    public Xml provideXml() {
+        return new Xml.Builder().build();
+    }
+
     @Provides @NonNull @Named(MAIN_THREAD_HANDLER) @Singleton
     public Handler provideMainThreadHandler() {
         return new Handler(Looper.getMainLooper());
     }
 
-    @Provides
-    @NonNull @Singleton
-    public Picasso providePicasso(@NonNull ArchitectureApplication app, @NonNull OkHttpClient okHttpClient) {
+    @Provides @NonNull @Singleton
+    public Picasso providePicasso(@NonNull CatApplication app, @NonNull OkHttpClient okHttpClient) {
         return new Picasso.Builder(app)
                 .downloader(new OkHttpDownloader(okHttpClient))
                 .build();

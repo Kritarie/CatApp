@@ -4,14 +4,32 @@ import android.content.ContentResolver;
 import android.support.annotation.NonNull;
 
 import com.example.samplearchitecture.api.RestClient;
+import com.example.samplearchitecture.api.entities.CatImage;
 import com.example.samplearchitecture.persistence.preferences.DataStore;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+import static rx.Observable.Transformer;
 
 /**
  * Created by seanamos on 12/28/15.
  */
 public class DataManager {
+
+    final Transformer<?, ?> schedule =
+            observable -> observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+
+    @SuppressWarnings("unchecked") // Schedule will always be type agnostic
+    <T> Transformer<T, T> applySchedulers() {
+        return (Transformer<T, T>) schedule;
+    }
 
     @NonNull
     private DataStore dataStore;
@@ -27,6 +45,9 @@ public class DataManager {
         this.resolver = resolver;
     }
 
-    // Fill with methods that return Observable<Thing>
+    public Observable<List<CatImage>> fetchCatImages() {
+        return api.fetchCats(80)
+                .map(catResponse -> catResponse.catData.images);
+    }
 
 }

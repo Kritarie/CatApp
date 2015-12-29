@@ -1,7 +1,5 @@
 package com.example.samplearchitecture;
 
-import android.support.annotation.NonNull;
-
 import com.example.samplearchitecture.api.ApiModule;
 import com.example.samplearchitecture.api.RestClient;
 import com.example.samplearchitecture.persistence.PersistenceModule;
@@ -27,16 +25,13 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     // Provide API to tests without needing to inject
-    @NonNull
     RestClient restClient();
 
     // Provide DataManager to tests without needing to inject
-    @NonNull
     DataManager dataManager();
 
-    void inject(@NonNull ArchitectureApplication app);
+    void inject(CatApplication app);
 
-    @NonNull
-    HomeComponent plus(@NonNull HomeModule homeModule);
+    HomeComponent plus(HomeModule homeModule);
 
 }

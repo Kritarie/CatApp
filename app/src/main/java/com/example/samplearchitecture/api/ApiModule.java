@@ -9,6 +9,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.tatarka.parsnip.ParsnipConverterFactory;
+import me.tatarka.parsnip.Xml;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
 
@@ -26,15 +28,16 @@ public class ApiModule {
     }
 
     @Provides @NonNull @Singleton
-    public ArchitectureUrl provideChangeableBaseUrl() {
+    public ArchitectureUrl provideBaseUrl() {
         return baseUrl;
     }
 
     @Provides @NonNull @Singleton
-    public RestClient provideQualityMattersApi(@NonNull OkHttpClient okHttpClient, @NonNull ArchitectureUrl baseUrl) {
+    public RestClient provideQualityMattersApi(@NonNull OkHttpClient okHttpClient, @NonNull Xml xml, @NonNull ArchitectureUrl baseUrl) {
         final Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
+                .addConverterFactory(ParsnipConverterFactory.create(xml))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
 
         // Fail early: check Retrofit configuration at creation time

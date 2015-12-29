@@ -35,13 +35,14 @@ dependencies {
     compile libraries.javaxAnnotationApi
 
     compile libraries.rxJava
+    compile libraries.rxAndroid
 
     compile libraries.okHttp
     compile libraries.okHttpLoggingInterceptor
     compile libraries.retrofit
-    compile libraries.retrofitJacksonConverter
+    compile libraries.retrofitParsnipConverter
     compile libraries.retrofitRxJavaAdapter
-    compile libraries.jacksonDataBind
+    compile libraries.parsnip
 
     compile libraries.autoValue
 
@@ -53,5 +54,4 @@ dependencies {
 
     compile libraries.butterKnife
     compile libraries.picasso
-    compile libraries.timber
 }
