@@ -5,6 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.example.samplearchitecture.ui.common.MvpView;
 
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
+import rx.subscriptions.Subscriptions;
+
 /**
  * Created by seanamos on 12/28/15.
  */
@@ -12,6 +16,8 @@ public abstract class Presenter<T extends MvpView> {
 
     @NonNull
     private final DataManager dataManager;
+    @NonNull
+    private CompositeSubscription compositeSubscription = new CompositeSubscription();
     @Nullable
     private T view;
 
@@ -24,18 +30,28 @@ public abstract class Presenter<T extends MvpView> {
         return dataManager;
     }
 
+    @NonNull
+    protected final CompositeSubscription getSubscriptions() {
+        return compositeSubscription;
+    }
+
     @Nullable
-    public final T getView() {
+    protected final T getView() {
         return view;
     }
 
-    public final void setView(@Nullable T view) {
+    public final void attachView(@NonNull T view) {
         this.view = view;
-        if (view == null) {
-            onViewDetacted();
-        } else {
-            onViewAttached(view);
+        compositeSubscription = new CompositeSubscription();
+        onViewAttached(view);
+    }
+
+    public final void detachView() {
+        view = null;
+        if (!compositeSubscription.isUnsubscribed()) {
+            compositeSubscription.unsubscribe();
         }
+        onViewDetacted();
     }
 
     protected void onViewAttached(@NonNull T View) {

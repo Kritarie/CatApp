@@ -5,8 +5,8 @@ import com.example.samplearchitecture.api.RestClient;
 import com.example.samplearchitecture.persistence.PersistenceModule;
 import com.example.samplearchitecture.network.NetworkModule;
 import com.example.samplearchitecture.ui.DataManager;
-import com.example.samplearchitecture.ui.home.HomeComponent;
-import com.example.samplearchitecture.ui.home.HomeModule;
+import com.example.samplearchitecture.ui.home.di.HomeComponent;
+import com.example.samplearchitecture.ui.home.di.HomeModule;
 
 import javax.inject.Singleton;
 

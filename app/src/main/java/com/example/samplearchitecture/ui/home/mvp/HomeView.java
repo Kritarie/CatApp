@@ -1,9 +1,10 @@
-package com.example.samplearchitecture.ui.home;
+package com.example.samplearchitecture.ui.home.mvp;
 
 import android.support.annotation.NonNull;
 
 import com.example.samplearchitecture.api.entities.CatImage;
 import com.example.samplearchitecture.ui.common.MvpView;
+import com.example.samplearchitecture.ui.home.recycler.HomeItem;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface HomeView extends MvpView {
 
     void showError(@NonNull Throwable error);
 
-    void showContent(@NonNull List<CatImage> items);
+    void showContent(@NonNull List<HomeItem<?>> items);
 }

@@ -1,8 +1,10 @@
-package com.example.samplearchitecture.ui.home;
+package com.example.samplearchitecture.ui.home.di;
 
 import android.support.annotation.NonNull;
 
+import com.example.samplearchitecture.ui.ActivityScope;
 import com.example.samplearchitecture.ui.DataManager;
+import com.example.samplearchitecture.ui.home.mvp.HomePresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,7 +15,7 @@ import dagger.Provides;
 @Module
 public class HomeModule {
 
-    @Provides @NonNull
+    @Provides @ActivityScope @NonNull
     public HomePresenter provideHomePresenter(DataManager dataManager) {
         return new HomePresenter(dataManager);
     }

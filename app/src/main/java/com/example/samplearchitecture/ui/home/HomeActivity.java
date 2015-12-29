@@ -8,44 +8,49 @@ import android.support.v7.widget.RecyclerView;
 import com.example.samplearchitecture.CatApplication;
 import com.example.samplearchitecture.R;
 import com.example.samplearchitecture.api.entities.CatImage;
-import com.example.samplearchitecture.ui.common.BaseActivity;
+import com.example.samplearchitecture.ui.common.RetainComponentActivity;
+import com.example.samplearchitecture.ui.home.di.HomeComponent;
+import com.example.samplearchitecture.ui.home.di.HomeModule;
+import com.example.samplearchitecture.ui.home.mvp.HomeView;
+import com.example.samplearchitecture.ui.home.recycler.HomeItem;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 
-public class HomeActivity extends BaseActivity implements HomeView {
-
-    @Inject
-    HomePresenter presenter;
+public class HomeActivity extends RetainComponentActivity<HomeComponent> implements HomeView {
 
     @Bind(R.id.recycler)
-    RecyclerView recycker;
+    RecyclerView recycler;
 
     @Bind(R.id.progress)
     ContentLoadingProgressBar progress;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        presenter = (HomePresenter) getLastCustomNonConfigurationInstance();
-        if (presenter == null) {
-            CatApplication.get(this).applicationComponent().plus(new HomeModule()).inject(this);
-        }
+    protected HomeComponent buildComponent() {
+        return CatApplication.get(this).applicationComponent().plus(new HomeModule());
     }
 
     @Override
-    public Object onRetainCustomNonConfigurationInstance() {
-        return presenter;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        getComponent().presenter().attachView(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getComponent().presenter().detachView();
     }
 
     @Override
     public void showLoading(boolean loading) {
-        //TODO
+        if (loading) {
+            progress.show();
+        } else {
+            progress.hide();
+        }
     }
 
     @Override
@@ -54,7 +59,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     }
 
     @Override
-    public void showContent(@NonNull List<CatImage> items) {
+    public void showContent(@NonNull List<HomeItem<?>> items) {
         progress.hide();
     }
 }

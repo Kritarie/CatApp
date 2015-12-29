@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.example.samplearchitecture.api.RestClient;
 import com.example.samplearchitecture.api.entities.CatImage;
 import com.example.samplearchitecture.persistence.preferences.DataStore;
+import com.example.samplearchitecture.ui.common.util.Converter;
 
 import java.util.List;
 
@@ -47,7 +48,14 @@ public class DataManager {
 
     public Observable<List<CatImage>> fetchCatImages() {
         return api.fetchCats(80)
-                .map(catResponse -> catResponse.catData.images);
+                .map(catResponse -> catResponse.catData.images)
+                .compose(applySchedulers());
+    }
+
+    public <T> Observable<T> fetchCatImages(Converter<List<CatImage>, T> converter) {
+        return fetchCatImages()
+                .map(converter::convert)
+                .compose(applySchedulers());
     }
 
 }
