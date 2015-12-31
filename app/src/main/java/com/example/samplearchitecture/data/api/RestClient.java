@@ -1,9 +1,9 @@
-package com.example.samplearchitecture.api;
+package com.example.samplearchitecture.data.api;
 
 
 import android.support.annotation.NonNull;
 
-import com.example.samplearchitecture.api.entities.CatResponse;
+import com.example.samplearchitecture.data.api.entity.CatResponse;
 
 import retrofit.http.GET;
 import retrofit.http.Query;

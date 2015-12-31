@@ -1,4 +1,4 @@
-package com.example.samplearchitecture.ui.common.util;
+package com.example.samplearchitecture.util;
 
 /**
  * Converts one kind of thing to another kind of thing

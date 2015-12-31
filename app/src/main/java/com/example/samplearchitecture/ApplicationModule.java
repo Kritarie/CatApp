@@ -1,6 +1,6 @@
 package com.example.samplearchitecture;
 
-import android.content.Context;
+import android.app.Application;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,20 +26,15 @@ public class ApplicationModule {
     public static final String MAIN_THREAD_HANDLER = "main_thread_handler";
 
     @NonNull
-    private final CatApplication app;
+    private final Application app;
 
-    public ApplicationModule(@NonNull CatApplication app) {
+    public ApplicationModule(@NonNull Application app) {
         this.app = app;
     }
 
     @Provides @NonNull @Singleton
-    public CatApplication provideApplication() {
+    public Application provideApplication() {
         return app;
-    }
-
-    @Provides @NonNull
-    public Context provideApplicationContext() {
-        return app.getApplicationContext();
     }
 
     @Provides @NonNull
@@ -58,7 +53,7 @@ public class ApplicationModule {
     }
 
     @Provides @NonNull @Singleton
-    public Picasso providePicasso(@NonNull CatApplication app, @NonNull OkHttpClient okHttpClient) {
+    public Picasso providePicasso(@NonNull Application app, @NonNull OkHttpClient okHttpClient) {
         return new Picasso.Builder(app)
                 .downloader(new OkHttpDownloader(okHttpClient))
                 .build();

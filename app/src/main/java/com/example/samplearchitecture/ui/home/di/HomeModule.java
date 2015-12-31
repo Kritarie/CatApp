@@ -3,7 +3,7 @@ package com.example.samplearchitecture.ui.home.di;
 import android.support.annotation.NonNull;
 
 import com.example.samplearchitecture.ui.ActivityScope;
-import com.example.samplearchitecture.ui.DataManager;
+import com.example.samplearchitecture.data.DataManager;
 import com.example.samplearchitecture.ui.home.mvp.HomePresenter;
 
 import dagger.Module;

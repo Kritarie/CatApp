@@ -1,4 +1,4 @@
-package com.example.samplearchitecture.api.entities;
+package com.example.samplearchitecture.data.api.entity;
 
 import java.util.List;
 

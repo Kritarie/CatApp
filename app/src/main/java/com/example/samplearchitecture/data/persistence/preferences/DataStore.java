@@ -1,4 +1,4 @@
-package com.example.samplearchitecture.persistence.preferences;
+package com.example.samplearchitecture.data.persistence.preferences;
 
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;

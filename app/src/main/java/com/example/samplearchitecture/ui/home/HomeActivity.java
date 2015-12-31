@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.samplearchitecture.CatApplication;
 import com.example.samplearchitecture.R;
-import com.example.samplearchitecture.api.entities.CatImage;
 import com.example.samplearchitecture.ui.common.RetainComponentActivity;
 import com.example.samplearchitecture.ui.home.di.HomeComponent;
 import com.example.samplearchitecture.ui.home.di.HomeModule;

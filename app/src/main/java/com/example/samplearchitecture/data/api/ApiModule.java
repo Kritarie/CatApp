@@ -1,4 +1,4 @@
-package com.example.samplearchitecture.api;
+package com.example.samplearchitecture.data.api;
 
 import android.support.annotation.NonNull;
 

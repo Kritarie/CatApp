@@ -1,4 +1,4 @@
-package com.example.samplearchitecture.api.entities;
+package com.example.samplearchitecture.data.api.entity;
 
 import com.google.auto.value.AutoValue;
 

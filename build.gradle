@@ -51,7 +51,9 @@ ext.versions = [
         okHttp            : '2.7.0',
         retrofit          : '2.0.0-beta2',
         parsnip           : '0.2',
+        sqlbrite          : '0.5.0',
         autoValue         : '1.1',
+        autoParcel        : '0.3.1',
         butterKnife       : '7.0.1',
         picasso           : '2.5.2',
         timber            : '4.1.0',
@@ -85,8 +87,11 @@ ext.libraries = [
         retrofitParsnipConverter: "me.tatarka.parsnip:parsnip:$versions.parsnip",
         retrofitRxJavaAdapter   : "com.squareup.retrofit:adapter-rxjava:$versions.retrofit",
         parsnip                 : "me.tatarka.parsnip:parsnip-retrofit-converter:$versions.parsnip",
+        sqlbrite                : "com.squareup.sqlbrite:sqlbrite:$versions.sqlbrite",
 
         autoValue               : "com.google.auto.value:auto-value:$versions.autoValue",
+        autoParcel              : "com.github.frankiesardo:auto-parcel:$versions.autoParcel",
+        autoParcelProcessor     : "com.github.frankiesardo:auto-parcel-processor:$versions.autoParcel",
 
         supportAnnotations      : "com.android.support:support-annotations:$versions.supportLibs",
         supportAppCompat        : "com.android.support:appcompat-v7:$versions.supportLibs",

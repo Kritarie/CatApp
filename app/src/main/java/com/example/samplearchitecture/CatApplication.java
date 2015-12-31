@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.example.samplearchitecture.api.ApiModule;
+import com.example.samplearchitecture.data.api.ApiModule;
 
 /**
  * Created by seanamos on 12/28/15.

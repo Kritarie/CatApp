@@ -43,8 +43,11 @@ dependencies {
     compile libraries.retrofitParsnipConverter
     compile libraries.retrofitRxJavaAdapter
     compile libraries.parsnip
+    compile libraries.sqlbrite
 
     compile libraries.autoValue
+    compile libraries.autoParcel
+    apt libraries.autoParcelProcessor
 
     compile libraries.supportAnnotations
     compile libraries.supportAppCompat

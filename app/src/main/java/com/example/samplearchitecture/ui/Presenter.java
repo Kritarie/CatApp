@@ -3,11 +3,10 @@ package com.example.samplearchitecture.ui;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.example.samplearchitecture.data.DataManager;
 import com.example.samplearchitecture.ui.common.MvpView;
 
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
-import rx.subscriptions.Subscriptions;
 
 /**
  * Created by seanamos on 12/28/15.
@@ -33,6 +32,13 @@ public abstract class Presenter<T extends MvpView> {
     @NonNull
     protected final CompositeSubscription getSubscriptions() {
         return compositeSubscription;
+    }
+
+    protected void clearSubscriptions() {
+        if (!compositeSubscription.isUnsubscribed()) {
+            compositeSubscription.unsubscribe();
+        }
+        compositeSubscription = new CompositeSubscription();
     }
 
     @Nullable

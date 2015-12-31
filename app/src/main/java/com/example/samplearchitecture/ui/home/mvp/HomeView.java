@@ -2,7 +2,6 @@ package com.example.samplearchitecture.ui.home.mvp;
 
 import android.support.annotation.NonNull;
 
-import com.example.samplearchitecture.api.entities.CatImage;
 import com.example.samplearchitecture.ui.common.MvpView;
 import com.example.samplearchitecture.ui.home.recycler.HomeItem;
 
