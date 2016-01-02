@@ -7,6 +7,8 @@ import com.squareup.sqlbrite.BriteDatabase;
 
 import java.util.List;
 
+import static android.database.sqlite.SQLiteDatabase.*;
+
 /**
  * Created by Sean on 12/30/2015.
  */
@@ -17,7 +19,7 @@ public final class DbUtil {
         BriteDatabase.Transaction transaction = db.newTransaction();
         try {
             for (int i = 0; i < count; i++) {
-                db.insert(table, values[i]);
+                db.insert(table, values[i], CONFLICT_REPLACE);
             }
             transaction.markSuccessful();
         } finally {
@@ -30,7 +32,7 @@ public final class DbUtil {
         BriteDatabase.Transaction transaction = db.newTransaction();
         try {
             for (int i = 0; i < count; i++) {
-                db.insert(table, values.get(i));
+                db.insert(table, values.get(i), CONFLICT_REPLACE);
             }
             transaction.markSuccessful();
         } finally {

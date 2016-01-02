@@ -15,7 +15,7 @@ import dagger.Component;
 /**
  * Created by seanamos on 12/28/15.
  */
-@Singleton
+@ApplicationScope
 @Component(modules = {
         ApplicationModule.class,
         NetworkModule.class,
@@ -23,15 +23,6 @@ import dagger.Component;
         PersistenceModule.class
 })
 public interface ApplicationComponent {
-
-    // Provide API to tests without needing to inject
-    RestClient restClient();
-
-    // Provide DataManager to tests without needing to inject
-    DataManager dataManager();
-
     void inject(CatApplication app);
-
     HomeComponent plus(HomeModule homeModule);
-
 }

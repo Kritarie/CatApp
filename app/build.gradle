@@ -45,7 +45,6 @@ dependencies {
     compile libraries.parsnip
     compile libraries.sqlbrite
 
-    compile libraries.autoValue
     compile libraries.autoParcel
     apt libraries.autoParcelProcessor
 

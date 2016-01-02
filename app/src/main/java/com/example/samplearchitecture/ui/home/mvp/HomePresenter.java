@@ -1,20 +1,18 @@
 package com.example.samplearchitecture.ui.home.mvp;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.example.samplearchitecture.data.DataManager;
-import com.example.samplearchitecture.data.model.CatModel;
-import com.example.samplearchitecture.ui.Presenter;
+import com.example.samplearchitecture.data.persistence.db.CatItem;
+import com.example.samplearchitecture.ui.common.Presenter;
 import com.example.samplearchitecture.ui.home.recycler.HomeItem;
 import com.example.samplearchitecture.util.RxUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
 import rx.Subscription;
-import rx.subjects.BehaviorSubject;
+import rx.observables.ConnectableObservable;
 
 /**
  * Created by seanamos on 12/28/15.
@@ -22,25 +20,29 @@ import rx.subjects.BehaviorSubject;
 public class HomePresenter extends Presenter<HomeView> {
 
     @NonNull
-    private Observable<List<HomeItem<?>>> observable;
-
-    @Nullable
-    private List<HomeItem<?>> data;
-    @Nullable
-    private Throwable error;
+    private ConnectableObservable<List<HomeItem<?>>> observable;
 
     public HomePresenter(@NonNull DataManager dataManager) {
         super(dataManager);
-        observable = getDataManager()
+        observable = load();
+        observable.connect();
+    }
+
+    private ConnectableObservable<List<HomeItem<?>>> load() {
+        return getDataManager()
                 .fetchCatImages(this::toHomeItems)
-                .compose(RxUtil.applySchedulers());
+                .compose(RxUtil.schedule())
+                .replay(1);
     }
 
     public void refresh() {
         clearSubscriptions();
-        observable = getDataManager()
-                .fetchCatImages(this::toHomeItems)
-                .compose(RxUtil.applySchedulers());
+        observable = load();
+        observable.connect();
+        if (getView() != null) {
+            Subscription sub = observable.subscribe(getView()::showContent, getView()::showError);
+            getSubscriptions().add(sub);
+        }
     }
 
     @Override
@@ -49,7 +51,8 @@ public class HomePresenter extends Presenter<HomeView> {
         getSubscriptions().add(sub);
     }
 
-    public List<HomeItem<?>> toHomeItems(List<CatModel> entity) {
+    @NonNull
+    public List<HomeItem<?>> toHomeItems(@NonNull List<CatItem> entity) {
         int count = entity.size();
         ArrayList<HomeItem<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {

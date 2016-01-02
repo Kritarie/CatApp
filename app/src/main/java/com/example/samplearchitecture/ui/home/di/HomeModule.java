@@ -16,7 +16,7 @@ import dagger.Provides;
 public class HomeModule {
 
     @Provides @ActivityScope @NonNull
-    public HomePresenter provideHomePresenter(DataManager dataManager) {
+    public HomePresenter provideHomePresenter(@NonNull DataManager dataManager) {
         return new HomePresenter(dataManager);
     }
 

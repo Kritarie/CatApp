@@ -2,10 +2,9 @@ package com.example.samplearchitecture.data.api;
 
 import android.support.annotation.NonNull;
 
+import com.example.samplearchitecture.ApplicationScope;
 import com.example.samplearchitecture.BuildConfig;
 import com.squareup.okhttp.OkHttpClient;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -27,13 +26,13 @@ public class ApiModule {
         this.baseUrl = new ArchitectureUrl(baseUrl);
     }
 
-    @Provides @NonNull @Singleton
+    @Provides @NonNull @ApplicationScope
     public ArchitectureUrl provideBaseUrl() {
         return baseUrl;
     }
 
-    @Provides @NonNull @Singleton
-    public RestClient provideQualityMattersApi(@NonNull OkHttpClient okHttpClient, @NonNull Xml xml, @NonNull ArchitectureUrl baseUrl) {
+    @Provides @NonNull @ApplicationScope
+    public RestClient provideCatApi(@NonNull OkHttpClient okHttpClient, @NonNull Xml xml, @NonNull ArchitectureUrl baseUrl) {
         final Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)

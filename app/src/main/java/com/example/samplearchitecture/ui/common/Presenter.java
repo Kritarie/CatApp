@@ -1,4 +1,4 @@
-package com.example.samplearchitecture.ui;
+package com.example.samplearchitecture.ui.common;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

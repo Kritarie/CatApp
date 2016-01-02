@@ -1,4 +1,4 @@
-package com.example.samplearchitecture.ui;
+package com.example.samplearchitecture;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -8,10 +8,10 @@ import javax.inject.Scope;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by seanamos on 12/29/15.
+ * Created by Sean on 1/1/2016.
  */
 @Scope
 @Documented
 @Retention(RUNTIME)
-public @interface ActivityScope {
+public @interface ApplicationScope {
 }

@@ -6,12 +6,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import com.example.samplearchitecture.data.DataManager;
+import com.example.samplearchitecture.data.api.RestClient;
+import com.example.samplearchitecture.data.persistence.preferences.DataStore;
+import com.example.samplearchitecture.network.NetworkManager;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
+import com.squareup.sqlbrite.BriteDatabase;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,31 +36,37 @@ public class ApplicationModule {
         this.app = app;
     }
 
-    @Provides @NonNull @Singleton
+    @Provides @NonNull @ApplicationScope
     public Application provideApplication() {
         return app;
     }
 
-    @Provides @NonNull
-    public Resources provideResources() {
+    @Provides @NonNull @ApplicationScope
+    public Resources provideResources(@NonNull Application app) {
         return app.getResources();
     }
 
-    @Provides @NonNull @Singleton
+    @Provides @NonNull @ApplicationScope
     public Xml provideXml() {
         return new Xml.Builder().build();
     }
 
-    @Provides @NonNull @Named(MAIN_THREAD_HANDLER) @Singleton
+    @Provides @NonNull @Named(MAIN_THREAD_HANDLER) @ApplicationScope
     public Handler provideMainThreadHandler() {
         return new Handler(Looper.getMainLooper());
     }
 
-    @Provides @NonNull @Singleton
+    @Provides @NonNull @ApplicationScope
     public Picasso providePicasso(@NonNull Application app, @NonNull OkHttpClient okHttpClient) {
         return new Picasso.Builder(app)
                 .downloader(new OkHttpDownloader(okHttpClient))
                 .build();
+    }
+
+    @Provides @NonNull @ApplicationScope
+    public DataManager provideDataManager(@NonNull DataStore store, @NonNull RestClient api,
+                                          @NonNull BriteDatabase db, @NonNull NetworkManager network) {
+        return new DataManager(store, api, db, network);
     }
 
 }

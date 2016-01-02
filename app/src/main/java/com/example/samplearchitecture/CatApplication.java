@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.samplearchitecture.data.api.ApiModule;
+import com.example.samplearchitecture.data.persistence.PersistenceModule;
+import com.example.samplearchitecture.network.NetworkModule;
 
 /**
  * Created by seanamos on 12/28/15.
@@ -31,8 +33,9 @@ public class CatApplication extends Application {
     protected DaggerApplicationComponent.Builder prepareApplicationComponent() {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                // This url may be changed dynamically for tests! See ArchitectureUrl.
-                .apiModule(new ApiModule("http://thecatapi.com/api/"));
+                .apiModule(new ApiModule("http://thecatapi.com/api/"))
+                .persistenceModule(new PersistenceModule())
+                .networkModule(new NetworkModule());
     }
 
     @NonNull
