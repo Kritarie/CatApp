@@ -9,6 +9,8 @@ import com.example.samplearchitecture.data.DataManager;
 import com.example.samplearchitecture.ui.home.di.HomeComponent;
 import com.example.samplearchitecture.ui.home.di.HomeModule;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -24,9 +26,9 @@ import dagger.Component;
         PersistenceModule.class
 })
 public interface ApplicationComponent {
-    // Provide direct for Tests
-    ArchitectureUrl architectureUrl();
 
-    void inject(CatApplication app);
-    HomeComponent plus(HomeModule homeModule);
+        ArchitectureUrl url();
+
+        void inject(CatApplication application);
+        HomeComponent plus(HomeModule module);
 }

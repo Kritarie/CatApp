@@ -1,6 +1,5 @@
 package com.example.samplearchitecture.util;
 
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
 import android.util.Log;
 

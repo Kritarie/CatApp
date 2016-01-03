@@ -25,21 +25,22 @@ public class CatApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        applicationComponent = prepareApplicationComponent().build();
+        applicationComponent = buildApplicationComponent();
         applicationComponent.inject(this);
     }
 
     @NonNull
-    protected DaggerApplicationComponent.Builder prepareApplicationComponent() {
+    protected ApplicationComponent buildApplicationComponent() {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .apiModule(new ApiModule("http://thecatapi.com/api/"))
                 .persistenceModule(new PersistenceModule())
-                .networkModule(new NetworkModule());
+                .networkModule(new NetworkModule())
+                .build();
     }
 
     @NonNull
-    public ApplicationComponent applicationComponent() {
+    public final ApplicationComponent applicationComponent() {
         return applicationComponent;
     }
 }

@@ -35,7 +35,7 @@ public class MockWebServerRule implements TestRule {
                     final MockWebServer mockWebServer = new MockWebServer();
                     mockWebServer.start();
 
-                    TestUtil.app().applicationComponent().architectureUrl().setBaseUrl(mockWebServer.url("").toString());
+                    TestUtil.app().applicationComponent().url().setBaseUrl(mockWebServer.url("").toString());
 
                     if (!needsMockWebServer.setupMethod().isEmpty()) {
                         final Method setupMethod = testClassInstance.getClass().getDeclaredMethod(needsMockWebServer.setupMethod(), MockWebServer.class);

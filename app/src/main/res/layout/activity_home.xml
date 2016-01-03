@@ -7,14 +7,15 @@
 
     <include android:id="@+id/toolbar" layout="@layout/toolbar" />
 
-    <FrameLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/progress"
@@ -23,6 +24,6 @@
             android:layout_gravity="center"
             android:indeterminate="true" />
 
-    </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
