@@ -13,7 +13,7 @@ android {
         versionCode versions.code
         versionName versions.name
 
-        testInstrumentationRunner 'com.example.samplearchitecture.androidTest.MockTestRunner'
+        testInstrumentationRunner 'com.example.samplearchitecture.androidTest.MockApplicationTestRunner'
     }
 
     compileOptions {
