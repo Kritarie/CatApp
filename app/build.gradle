@@ -12,6 +12,8 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versions.code
         versionName versions.name
+
+        testInstrumentationRunner 'com.example.samplearchitecture.androidTest.MockTestRunner'
     }
 
     compileOptions {
@@ -56,4 +58,29 @@ dependencies {
 
     compile libraries.butterKnife
     compile libraries.picasso
+
+    testCompile libraries.junit
+    testCompile libraries.robolectric
+    testCompile libraries.assertJ
+    testCompile libraries.equalsVerifier
+    testCompile libraries.okHttpMockWebServer
+    testCompile libraries.mockitoCore
+
+    androidTestCompile libraries.supportTestRunner
+    androidTestCompile libraries.supportTestRules
+    androidTestCompile libraries.espressoCore
+    androidTestCompile(libraries.espressoContrib) {
+        // Causes IncompatibleClassChangeError. As always…
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-v4'
+    }
+    androidTestCompile libraries.okHttpMockWebServer
+}
+
+configurations.all {
+    resolutionStrategy {
+        // Force our version of support-annotations, we have a conflict between app and androidTest dependency resolution.
+        force libraries.supportAnnotations
+    }
 }

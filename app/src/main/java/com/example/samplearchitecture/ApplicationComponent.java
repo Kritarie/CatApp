@@ -1,6 +1,7 @@
 package com.example.samplearchitecture;
 
 import com.example.samplearchitecture.data.api.ApiModule;
+import com.example.samplearchitecture.data.api.ArchitectureUrl;
 import com.example.samplearchitecture.data.api.RestClient;
 import com.example.samplearchitecture.data.persistence.PersistenceModule;
 import com.example.samplearchitecture.network.NetworkModule;
@@ -23,6 +24,9 @@ import dagger.Component;
         PersistenceModule.class
 })
 public interface ApplicationComponent {
+    // Provide direct for Tests
+    ArchitectureUrl architectureUrl();
+
     void inject(CatApplication app);
     HomeComponent plus(HomeModule homeModule);
 }
